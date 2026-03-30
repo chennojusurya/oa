@@ -4,7 +4,7 @@
 // ===================================
 
 import { renderNavbar, renderFooter, renderCourseCard, initRevealAnimations } from '../components/shared.js';
-import { courses, getUniquePlatforms } from '../data/courses.js';
+import { allCourses as courses, getUniquePlatforms } from '../data/courses.js';
 import { searchCourses, filterCourses } from '../utils/recommendations.js';
 import { addSearchTerm } from '../utils/storage.js';
 
@@ -27,7 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
     addSearchTerm(q);
   }
 
-  applyFilters();
+  // Show thinking on initial load if there's a search query or always on first visit
+  const hasQuery = document.getElementById('searchInput').value.trim();
+  if (hasQuery) {
+    applyFiltersWithThinking();
+  } else {
+    applyFilters();
+  }
   initRevealAnimations();
 });
 
@@ -42,10 +48,10 @@ function populatePlatformFilter() {
 }
 
 function setupEventListeners() {
-  document.getElementById('filterDifficulty').addEventListener('change', () => { currentPage = 1; applyFilters(); });
-  document.getElementById('filterPrice').addEventListener('change', () => { currentPage = 1; applyFilters(); });
-  document.getElementById('filterPlatform').addEventListener('change', () => { currentPage = 1; applyFilters(); });
-  document.getElementById('sortBy').addEventListener('change', () => { currentPage = 1; applyFilters(); });
+  document.getElementById('filterDifficulty').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
+  document.getElementById('filterPrice').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
+  document.getElementById('filterPlatform').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
+  document.getElementById('sortBy').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
 
   let searchTimeout;
   document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -53,12 +59,12 @@ function setupEventListeners() {
     searchTimeout = setTimeout(() => {
       currentPage = 1;
       if (e.target.value.trim()) addSearchTerm(e.target.value.trim());
-      applyFilters();
-    }, 300);
+      applyFiltersWithThinking();
+    }, 500);
   });
 }
 
-function applyFilters() {
+function applyFilters(showResults = true) {
   const searchQuery = document.getElementById('searchInput').value;
   const difficulty = document.getElementById('filterDifficulty').value;
   const priceType = document.getElementById('filterPrice').value;
@@ -74,8 +80,57 @@ function applyFilters() {
   filteredCourses = results;
 
   renderActiveFilters({ difficulty, priceType, platform });
-  renderResults();
-  renderPagination();
+  if (showResults) {
+    renderResults();
+    renderPagination();
+  }
+}
+
+// Show AI thinking animation, then reveal results
+function applyFiltersWithThinking() {
+  const container = document.getElementById('courseGrid');
+  const infoEl = document.getElementById('resultsInfo');
+  const paginationEl = document.getElementById('pagination');
+
+  // Hide pagination during loading
+  paginationEl.innerHTML = '';
+  infoEl.innerHTML = '';
+
+  // Show thinking overlay with shimmer placeholders
+  container.innerHTML = `
+    <div class="thinking-overlay">
+      <div class="thinking-brain">🧠</div>
+      <div class="thinking-text">Searching across 1100+ courses...</div>
+      <div class="thinking-subtext">Analyzing huge datasets from Coursera, Udemy, Kaggle, edX, YouTube, Hugging Face, and more</div>
+      <div class="thinking-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="thinking-progress">
+        <div class="thinking-progress-bar"></div>
+      </div>
+    </div>
+    <div class="shimmer-grid">
+      ${Array(6).fill('').map(() => `
+        <div class="shimmer-card">
+          <div class="shimmer-card-image"></div>
+          <div class="shimmer-card-body">
+            <div class="shimmer-line w-90"></div>
+            <div class="shimmer-line w-50"></div>
+            <div class="shimmer-line w-75"></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  // Compute results in background but delay showing
+  applyFilters(false);
+
+  // Show results after 4 seconds
+  setTimeout(() => {
+    renderResults();
+    renderPagination();
+  }, 4000);
 }
 
 function renderActiveFilters({ difficulty, priceType, platform }) {

@@ -162,3 +162,142 @@
     flex: 1;
   }
 }
+
+/* ---- AI Thinking / Loading Animation ---- */
+.thinking-overlay {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-6);
+  gap: var(--space-5);
+  animation: fadeIn 0.3s ease;
+}
+
+.thinking-brain {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  animation: pulse-brain 1.5s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+}
+
+.thinking-text {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.thinking-subtext {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 400px;
+}
+
+.thinking-dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.thinking-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary-500);
+  animation: dot-bounce 1.4s ease-in-out infinite both;
+}
+.thinking-dots span:nth-child(1) { animation-delay: 0s; }
+.thinking-dots span:nth-child(2) { animation-delay: 0.2s; }
+.thinking-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+.thinking-progress {
+  width: 200px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--gray-200);
+  overflow: hidden;
+  margin-top: var(--space-2);
+}
+
+.thinking-progress-bar {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--primary-500), var(--primary-400), var(--primary-600));
+  background-size: 200% 100%;
+  animation: shimmer-bar 2s linear infinite, grow-bar 4s ease-out forwards;
+}
+
+/* Shimmer placeholder cards */
+.shimmer-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-6);
+  width: 100%;
+}
+
+.shimmer-card {
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-card);
+}
+
+.shimmer-card-image {
+  height: 140px;
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-50) 50%, var(--gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer-bar 1.5s ease-in-out infinite;
+}
+
+.shimmer-card-body {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.shimmer-line {
+  height: 14px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-50) 50%, var(--gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer-bar 1.5s ease-in-out infinite;
+}
+.shimmer-line.w-75 { width: 75%; }
+.shimmer-line.w-50 { width: 50%; }
+.shimmer-line.w-90 { width: 90%; }
+
+@keyframes pulse-brain {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(99, 102, 241, 0.3); }
+  50% { transform: scale(1.1); box-shadow: 0 0 50px rgba(99, 102, 241, 0.5); }
+}
+
+@keyframes dot-bounce {
+  0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes shimmer-bar {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes grow-bar {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

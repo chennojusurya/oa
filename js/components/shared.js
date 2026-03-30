@@ -53,8 +53,7 @@ export function renderNavbar(activePage = '') {
   nav.innerHTML = `
     <div class="container">
       <a href="${base}index.html" class="nav-logo">
-        ${ICONS.logo}
-        CourseAI
+        Online Course Aggregator
       </a>
       <div class="nav-links" id="navLinks">
         <a href="${base}index.html" class="nav-link ${activePage === 'home' ? 'active' : ''}">${ICONS.home} Home</a>
@@ -120,8 +119,8 @@ export function renderFooter() {
     <div class="container">
       <div class="footer-grid">
         <div>
-          <div class="footer-brand">🎓 CourseAI</div>
-          <p class="footer-desc">Stop Searching. Start Learning Smart. AI-powered course aggregation from 10+ platforms to help you find the perfect learning path.</p>
+          <div class="footer-brand">Online Course Aggregator</div>
+          <p class="footer-desc">Stop Searching. Start Learning Smart. AI-powered course aggregation from 14+ platforms using huge datasets to help you find the perfect learning path.</p>
         </div>
         <div>
           <h4 class="footer-heading">Platform</h4>
@@ -154,7 +153,7 @@ export function renderFooter() {
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 CourseAI. All rights reserved.</span>
+        <span>© 2026 Online Course Aggregator. All rights reserved.</span>
         <div class="footer-socials">
           <a href="#" aria-label="Twitter">𝕏</a>
           <a href="#" aria-label="GitHub">⌨</a>
@@ -226,6 +225,14 @@ export function renderCourseCard(course, reason = '') {
       saveBtn.innerHTML = ICONS.heartFilled;
       showToast('Course saved!', 'success');
     }
+  });
+
+  // Make the entire card clickable
+  card.style.cursor = 'pointer';
+  card.addEventListener('click', (e) => {
+    if (e.target.closest('.card-save')) return;
+    const url = course.link || `https://www.google.com/search?q=${encodeURIComponent(course.title + ' course ' + course.platform)}`;
+    window.open(url, '_blank');
   });
 
   return card;

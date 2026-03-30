@@ -4,7 +4,7 @@
 // ===================================
 
 import { renderNavbar, renderFooter, ICONS, showToast, renderStars } from '../components/shared.js';
-import { courses } from '../data/courses.js';
+import { allCourses as courses } from '../data/courses.js';
 import { addFeedback, getFeedback, setRecFeedback, getRecFeedback } from '../utils/storage.js';
 import { getRecommendations } from '../utils/recommendations.js';
 import { getUser } from '../utils/auth.js';

@@ -4,7 +4,7 @@
 // With Explainable AI reasons
 // ===================================
 
-import { courses } from '../data/courses.js';
+import { allCourses as courses } from '../data/courses.js';
 import { getUser } from './auth.js';
 import { getSearchHistory, getSavedCourses, getCompletedCourses, getRecFeedback } from './storage.js';
 

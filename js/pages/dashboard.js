@@ -7,7 +7,7 @@ import { renderNavbar, renderFooter, renderCourseCard, showToast, ICONS, initRev
 import { getUser, isLoggedIn } from '../utils/auth.js';
 import { getSavedCourses, getCompletedCourses, getProgress, unsaveCourse, markCourseCompleted, setCourseProgress } from '../utils/storage.js';
 import { getRecommendations } from '../utils/recommendations.js';
-import { courses, getCategoryGradient } from '../data/courses.js';
+import { allCourses as courses, getCategoryGradient } from '../data/courses.js';
 import { skillToCareerMap } from '../data/career-paths.js';
 
 document.addEventListener('DOMContentLoaded', () => {

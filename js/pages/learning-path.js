@@ -5,7 +5,7 @@
 
 import { renderNavbar, renderFooter, renderCourseCard, ICONS, showToast, initRevealAnimations } from '../components/shared.js';
 import { careerPaths, getCareerGoals } from '../data/career-paths.js';
-import { courses } from '../data/courses.js';
+import { allCourses as courses } from '../data/courses.js';
 import { getUser } from '../utils/auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
