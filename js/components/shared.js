@@ -174,6 +174,23 @@ export function renderCourseCard(course, reason = '') {
 
   const card = document.createElement('div');
   card.className = 'course-card animate-fade-in-up';
+
+  // Certificate badge
+  const certType = course.certType || '';
+  let certBadge = '';
+  if (certType) {
+    const isFreeCert = certType.toLowerCase().includes('free cert');
+    const isPaidCert = certType.toLowerCase().includes('paid cert');
+    const noCert = certType.toLowerCase().includes('no cert');
+    if (isFreeCert) {
+      certBadge = '<span class="card-cert-badge cert-free">🏅 Free Certificate</span>';
+    } else if (isPaidCert) {
+      certBadge = '<span class="card-cert-badge cert-paid">📜 Paid Certificate</span>';
+    } else if (noCert) {
+      certBadge = '<span class="card-cert-badge cert-none">No Certificate</span>';
+    }
+  }
+
   card.innerHTML = `
     <div class="card-image" style="background:${gradient}; display:flex; align-items:center; justify-content:center;">
       <span style="color:rgba(255,255,255,0.85); font-size:2.5rem; font-weight:800; font-family:var(--font-display); text-shadow:0 2px 8px rgba(0,0,0,0.2);">${course.category.split(' ').map(w=>w[0]).join('')}</span>
@@ -186,6 +203,10 @@ export function renderCourseCard(course, reason = '') {
     <div class="card-body">
       <h4 class="card-title">${course.title}</h4>
       <p class="card-instructor">${course.instructor}</p>
+      <div class="card-tags-row">
+        <span class="card-category-tag">${course.category}</span>
+        ${certBadge}
+      </div>
       <div class="card-meta">
         <span class="card-rating">${ICONS.star} ${course.rating}</span>
         <span>${ICONS.clock} ${course.duration}</span>

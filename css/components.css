@@ -191,6 +191,52 @@
   color: var(--success-500);
 }
 
+/* ---- Card tags row ---- */
+.card-tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.card-category-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: var(--gray-100);
+  color: var(--gray-600);
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-cert-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  white-space: nowrap;
+}
+.card-cert-badge.cert-free {
+  background: #dcfce7;
+  color: #166534;
+}
+.card-cert-badge.cert-paid {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.card-cert-badge.cert-none {
+  background: var(--gray-100);
+  color: var(--gray-500);
+}
+
 /* ---- Recommendation reason ---- */
 .card-reason {
   background: var(--primary-50);

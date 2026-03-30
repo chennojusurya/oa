@@ -112,11 +112,17 @@
   gap: var(--space-10);
   padding: var(--space-8) 0;
   opacity: 0.5;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
+.platform-strip::-webkit-scrollbar { display: none; }
 .platform-strip span {
   font-size: var(--text-lg);
   font-weight: var(--font-semibold);
   color: var(--gray-400);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* ---- CTA Banner ---- */
@@ -143,11 +149,41 @@
 @media (max-width: 768px) {
   .hero { padding: var(--space-16) 0 var(--space-12); }
   .hero h1 { font-size: var(--text-3xl); }
-  .hero-stats { gap: var(--space-6); }
+  .hero p { font-size: var(--text-base); padding: 0 var(--space-2); }
+  .hero-stats { gap: var(--space-6); flex-wrap: wrap; }
   .hero-stat-value { font-size: var(--text-2xl); }
+  .hero .search-bar {
+    flex-direction: column;
+    border-radius: var(--radius-xl);
+    gap: var(--space-2);
+    padding: var(--space-3);
+  }
+  .hero .search-bar input {
+    text-align: center;
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
+  }
+  .hero .search-bar .btn {
+    width: 100%;
+    border-radius: var(--radius-lg);
+  }
+  .hero .search-bar svg { display: none; }
+  .platform-strip {
+    justify-content: flex-start;
+    gap: var(--space-6);
+    padding: var(--space-4) var(--space-2);
+  }
+  .platform-strip span { font-size: var(--text-base); }
+  .cta-banner {
+    padding: var(--space-10) var(--space-5);
+  }
+  .cta-banner h2 { font-size: var(--text-xl); }
+  .cta-banner p { font-size: var(--text-sm); }
+  .trending-skills { gap: var(--space-2); }
 }
 
 @media (max-width: 480px) {
   .hero h1 { font-size: var(--text-2xl); }
   .hero-stats { flex-direction: column; gap: var(--space-4); }
+  .hero-badge { font-size: var(--text-xs); }
 }

@@ -1,10 +1,11 @@
 // ===================================
 // EXPLORE PAGE SCRIPT
-// Filtering, sorting, searching, and pagination
+// Filtering, sorting, searching, pagination
+// With AI thinking animation & certificate/category filters
 // ===================================
 
 import { renderNavbar, renderFooter, renderCourseCard, initRevealAnimations } from '../components/shared.js';
-import { allCourses as courses, getUniquePlatforms } from '../data/courses.js';
+import { allCourses as courses, getUniquePlatforms, getUniqueCategories } from '../data/courses.js';
 import { searchCourses, filterCourses } from '../utils/recommendations.js';
 import { addSearchTerm } from '../utils/storage.js';
 
@@ -16,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderNavbar('explore');
   renderFooter();
 
-  populatePlatformFilter();
+  populateFilters();
   setupEventListeners();
 
   // Check for search query from URL
@@ -27,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     addSearchTerm(q);
   }
 
-  // Show thinking on initial load if there's a search query or always on first visit
   const hasQuery = document.getElementById('searchInput').value.trim();
   if (hasQuery) {
     applyFiltersWithThinking();
@@ -37,21 +37,32 @@ document.addEventListener('DOMContentLoaded', () => {
   initRevealAnimations();
 });
 
-function populatePlatformFilter() {
-  const select = document.getElementById('filterPlatform');
+function populateFilters() {
+  // Platform filter
+  const platformSelect = document.getElementById('filterPlatform');
   getUniquePlatforms().forEach(p => {
     const opt = document.createElement('option');
     opt.value = p;
     opt.textContent = p;
-    select.appendChild(opt);
+    platformSelect.appendChild(opt);
+  });
+
+  // Category filter
+  const catSelect = document.getElementById('filterCategory');
+  getUniqueCategories().forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    catSelect.appendChild(opt);
   });
 }
 
 function setupEventListeners() {
-  document.getElementById('filterDifficulty').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
-  document.getElementById('filterPrice').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
-  document.getElementById('filterPlatform').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
-  document.getElementById('sortBy').addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
+  const filterIds = ['filterDifficulty', 'filterPrice', 'filterPlatform', 'sortBy', 'filterCategory', 'filterCert'];
+  filterIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => { currentPage = 1; applyFiltersWithThinking(); });
+  });
 
   let searchTimeout;
   document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -70,16 +81,34 @@ function applyFilters(showResults = true) {
   const priceType = document.getElementById('filterPrice').value;
   const platform = document.getElementById('filterPlatform').value;
   const sortBy = document.getElementById('sortBy').value;
+  const category = document.getElementById('filterCategory').value;
+  const certFilter = document.getElementById('filterCert').value;
 
   // Start with search
   let results = searchCourses(searchQuery);
 
-  // Apply filters
+  // Apply standard filters
   results = filterCourses(results, { difficulty, priceType, platform, sortBy });
+
+  // Apply category filter
+  if (category !== 'all') {
+    results = results.filter(c => c.category === category);
+  }
+
+  // Apply certificate filter
+  if (certFilter !== 'all') {
+    results = results.filter(c => {
+      const cert = (c.certType || '').toLowerCase();
+      if (certFilter === 'free-cert') return cert.includes('free cert');
+      if (certFilter === 'paid-cert') return cert.includes('paid cert');
+      if (certFilter === 'no-cert') return cert.includes('no cert');
+      return true;
+    });
+  }
 
   filteredCourses = results;
 
-  renderActiveFilters({ difficulty, priceType, platform });
+  renderActiveFilters({ difficulty, priceType, platform, category, certFilter });
   if (showResults) {
     renderResults();
     renderPagination();
@@ -92,16 +121,14 @@ function applyFiltersWithThinking() {
   const infoEl = document.getElementById('resultsInfo');
   const paginationEl = document.getElementById('pagination');
 
-  // Hide pagination during loading
   paginationEl.innerHTML = '';
   infoEl.innerHTML = '';
 
-  // Show thinking overlay with shimmer placeholders
   container.innerHTML = `
     <div class="thinking-overlay">
       <div class="thinking-brain">🧠</div>
-      <div class="thinking-text">Searching across 1100+ courses...</div>
-      <div class="thinking-subtext">Analyzing huge datasets from Coursera, Udemy, Kaggle, edX, YouTube, Hugging Face, and more</div>
+      <div class="thinking-text">Searching across 1600+ courses...</div>
+      <div class="thinking-subtext">Analyzing huge datasets from NPTEL, Coursera, Udemy, Kaggle, edX, YouTube, and 10+ more platforms</div>
       <div class="thinking-dots">
         <span></span><span></span><span></span>
       </div>
@@ -123,17 +150,15 @@ function applyFiltersWithThinking() {
     </div>
   `;
 
-  // Compute results in background but delay showing
   applyFilters(false);
 
-  // Show results after 4 seconds
   setTimeout(() => {
     renderResults();
     renderPagination();
   }, 4000);
 }
 
-function renderActiveFilters({ difficulty, priceType, platform }) {
+function renderActiveFilters({ difficulty, priceType, platform, category, certFilter }) {
   const container = document.getElementById('activeFilters');
   container.innerHTML = '';
 
@@ -141,6 +166,11 @@ function renderActiveFilters({ difficulty, priceType, platform }) {
   if (difficulty !== 'all') filters.push({ label: difficulty, type: 'difficulty' });
   if (priceType !== 'all') filters.push({ label: priceType === 'free' ? 'Free' : 'Paid', type: 'price' });
   if (platform !== 'all') filters.push({ label: platform, type: 'platform' });
+  if (category !== 'all') filters.push({ label: category, type: 'category' });
+  if (certFilter !== 'all') {
+    const certLabels = {'free-cert':'Free Certificate','paid-cert':'Paid Certificate','no-cert':'No Certificate'};
+    filters.push({ label: certLabels[certFilter] || certFilter, type: 'cert' });
+  }
 
   filters.forEach(f => {
     const chip = document.createElement('span');
@@ -150,6 +180,8 @@ function renderActiveFilters({ difficulty, priceType, platform }) {
       if (f.type === 'difficulty') document.getElementById('filterDifficulty').value = 'all';
       if (f.type === 'price') document.getElementById('filterPrice').value = 'all';
       if (f.type === 'platform') document.getElementById('filterPlatform').value = 'all';
+      if (f.type === 'category') document.getElementById('filterCategory').value = 'all';
+      if (f.type === 'cert') document.getElementById('filterCert').value = 'all';
       currentPage = 1;
       applyFilters();
     });
@@ -165,7 +197,7 @@ function renderResults() {
   const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
   const pageItems = filteredCourses.slice(startIdx, startIdx + ITEMS_PER_PAGE);
 
-  infoEl.innerHTML = `Showing <strong>${startIdx + 1}–${Math.min(startIdx + ITEMS_PER_PAGE, filteredCourses.length)}</strong> of <strong>${filteredCourses.length}</strong> courses`;
+  infoEl.innerHTML = `Showing <strong>${Math.min(startIdx + 1, filteredCourses.length)}–${Math.min(startIdx + ITEMS_PER_PAGE, filteredCourses.length)}</strong> of <strong>${filteredCourses.length}</strong> courses`;
 
   if (pageItems.length === 0) {
     container.innerHTML = `
@@ -190,16 +222,12 @@ function renderPagination() {
   const totalPages = Math.ceil(filteredCourses.length / ITEMS_PER_PAGE);
   if (totalPages <= 1) return;
 
-  // Prev button
   if (currentPage > 1) {
-    const prev = createPageBtn('←', currentPage - 1);
-    container.appendChild(prev);
+    container.appendChild(createPageBtn('←', currentPage - 1));
   }
 
-  // Page numbers
   for (let i = 1; i <= totalPages; i++) {
     if (totalPages > 7) {
-      // Show first, last, and neighbors
       if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
         container.appendChild(createPageBtn(i, i));
       } else if (i === currentPage - 2 || i === currentPage + 2) {
@@ -214,10 +242,8 @@ function renderPagination() {
     }
   }
 
-  // Next button
   if (currentPage < totalPages) {
-    const next = createPageBtn('→', currentPage + 1);
-    container.appendChild(next);
+    container.appendChild(createPageBtn('→', currentPage + 1));
   }
 }
 

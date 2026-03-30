@@ -301,3 +301,30 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Mobile responsive for thinking animation */
+@media (max-width: 768px) {
+  .thinking-overlay {
+    padding: var(--space-8) var(--space-4);
+  }
+  .thinking-brain {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+  .thinking-text {
+    font-size: var(--text-base);
+  }
+  .thinking-subtext {
+    font-size: var(--text-xs);
+  }
+  .shimmer-grid {
+    grid-template-columns: 1fr;
+  }
+  .explore-toolbar {
+    padding: var(--space-4);
+  }
+  .filter-select {
+    min-width: auto;
+  }
+}

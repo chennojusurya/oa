@@ -24,6 +24,12 @@
         <!-- Toolbar: filters + search -->
         <div class="explore-toolbar" id="exploreToolbar">
           <div class="filter-group">
+            <label>Category:</label>
+            <select class="filter-select" id="filterCategory">
+              <option value="all">All Categories</option>
+            </select>
+          </div>
+          <div class="filter-group">
             <label>Difficulty:</label>
             <select class="filter-select" id="filterDifficulty">
               <option value="all">All Levels</option>
@@ -47,6 +53,15 @@
             </select>
           </div>
           <div class="filter-group">
+            <label>Certificate:</label>
+            <select class="filter-select" id="filterCert">
+              <option value="all">All Types</option>
+              <option value="free-cert">Free Certificate</option>
+              <option value="paid-cert">Paid Certificate</option>
+              <option value="no-cert">No Certificate</option>
+            </select>
+          </div>
+          <div class="filter-group">
             <label>Sort by:</label>
             <select class="filter-select" id="sortBy">
               <option value="relevance">Relevance</option>
@@ -57,7 +72,7 @@
           </div>
           <div class="explore-search" id="exploreSearch">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:var(--gray-400)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-            <input type="text" id="searchInput" placeholder="Search courses..." aria-label="Search courses">
+            <input type="text" id="searchInput" placeholder="Search Python, ML, NPTEL, Web Dev, DSA..." aria-label="Search courses">
           </div>
         </div>
 

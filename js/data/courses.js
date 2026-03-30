@@ -1,6 +1,7 @@
 // ===================================
-// COURSE DATASET — 1100+ courses from huge datasets
-// Hand-crafted + dynamically generated from 14+ platforms
+// COURSE DATASET — 1600+ courses from huge datasets
+// Hand-crafted + dynamically generated from 16+ platforms
+// IT Sector, CS, Engineering, Skill Development
 // ===================================
 
 import { generateCourses } from './course-generator.js';
@@ -8,7 +9,8 @@ import { generateCourses } from './course-generator.js';
 export const PLATFORMS = [
   'Coursera', 'Udemy', 'edX', 'YouTube', 'Khan Academy',
   'NPTEL', 'HackerRank', 'LeetCode', 'Codecademy', 'Pluralsight',
-  'Kaggle', 'Hugging Face Datasets', 'AWS Open Data', 'UCI Machine Learning'
+  'Kaggle', 'Hugging Face', 'Skillshare', 'LinkedIn Learning',
+  'Great Learning', 'Simplilearn'
 ];
 
 export const CATEGORIES = [
@@ -924,7 +926,7 @@ export const courses = [
   }
 ];
 // Merge hand-crafted + generated courses
-const generatedCourses = generateCourses(200, 1000);
+const generatedCourses = generateCourses(200, 1500);
 export const allCourses = [...courses, ...generatedCourses];
 
 // Helper: get unique platforms from data
@@ -935,4 +937,9 @@ export function getUniquePlatforms() {
 // Helper: get unique categories
 export function getUniqueCategories() {
   return [...new Set(allCourses.map(c => c.category))].sort();
+}
+
+// Helper: get unique certificate types
+export function getCertTypes() {
+  return [...new Set(allCourses.filter(c => c.certType).map(c => c.certType))].sort();
 }
