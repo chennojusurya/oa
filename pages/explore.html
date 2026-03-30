@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore 85+ courses from 10+ platforms. Filter by difficulty, price, and platform.">
+  <title>Explore Courses — CourseAI</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages/explore.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <main>
+      <div class="container">
+        <div class="explore-header">
+          <h1>Explore Courses</h1>
+          <p style="color:var(--text-secondary)">Discover 85+ courses across 10+ platforms</p>
+        </div>
+
+        <!-- Toolbar: filters + search -->
+        <div class="explore-toolbar" id="exploreToolbar">
+          <div class="filter-group">
+            <label>Difficulty:</label>
+            <select class="filter-select" id="filterDifficulty">
+              <option value="all">All Levels</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate">Intermediate</option>
+              <option value="Advanced">Advanced</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Price:</label>
+            <select class="filter-select" id="filterPrice">
+              <option value="all">All</option>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Platform:</label>
+            <select class="filter-select" id="filterPlatform">
+              <option value="all">All Platforms</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label>Sort by:</label>
+            <select class="filter-select" id="sortBy">
+              <option value="relevance">Relevance</option>
+              <option value="rating">Rating</option>
+              <option value="popularity">Popularity</option>
+              <option value="reviews">Reviews</option>
+            </select>
+          </div>
+          <div class="explore-search" id="exploreSearch">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:var(--gray-400)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" id="searchInput" placeholder="Search courses..." aria-label="Search courses">
+          </div>
+        </div>
+
+        <!-- Active filter chips -->
+        <div class="active-filters" id="activeFilters"></div>
+
+        <!-- Results info -->
+        <p class="results-info" id="resultsInfo"></p>
+
+        <!-- Course grid -->
+        <div class="course-grid stagger" id="courseGrid"></div>
+
+        <!-- Pagination -->
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="../js/pages/explore.js"></script>
+</body>
+</html>

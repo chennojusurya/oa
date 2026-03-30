@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Rate courses, provide feedback, and help improve AI recommendations.">
+  <title>Feedback — CourseAI</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages/feedback.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <main>
+      <div class="container">
+        <div class="feedback-header">
+          <h1>💬 Feedback</h1>
+          <p>Help us improve by rating courses and sharing your experience. Your feedback adapts future recommendations.</p>
+        </div>
+
+        <div class="feedback-grid">
+          <!-- Rate a Course -->
+          <div class="feedback-card animate-fade-in-up">
+            <h3>⭐ Rate a Course</h3>
+            <div class="form-group">
+              <label class="form-label" for="feedbackCourseSelect">Select Course</label>
+              <select class="form-select" id="feedbackCourseSelect">
+                <option value="">Choose a course...</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Your Rating</label>
+              <div class="star-rating-input" id="starRating"></div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="feedbackText">Comments (optional)</label>
+              <textarea class="feedback-textarea" id="feedbackText" placeholder="Share your thoughts about this course..."></textarea>
+            </div>
+            <button class="btn btn-primary" id="submitRating" style="width:100%;">Submit Rating</button>
+          </div>
+
+          <!-- Like/Dislike Recommendations -->
+          <div class="feedback-card animate-fade-in-up" style="animation-delay:100ms">
+            <h3>👍 Recommendation Feedback</h3>
+            <p style="font-size:var(--text-sm);color:var(--text-secondary);margin-bottom:var(--space-5);">Did you find these recommendations helpful?</p>
+            <div id="recFeedbackList"></div>
+            <div style="margin-top:var(--space-6);padding-top:var(--space-5);border-top:1px solid var(--gray-200);">
+              <h4 style="font-size:var(--text-base);margin-bottom:var(--space-4);">📝 General Feedback</h4>
+              <textarea class="feedback-textarea" id="generalFeedback" placeholder="Any suggestions to improve the platform?"></textarea>
+              <button class="btn btn-secondary" id="submitGeneral" style="width:100%;margin-top:var(--space-3);">Send Feedback</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Past Feedback -->
+        <div class="feedback-list" id="feedbackHistory">
+          <h2>📋 Your Feedback History</h2>
+          <div id="feedbackHistoryList"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="../js/pages/feedback.js"></script>
+</body>
+</html>

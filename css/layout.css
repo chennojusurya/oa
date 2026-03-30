@@ -1,0 +1,251 @@
+/* ===================================
+   LAYOUT — Nav, Footer, Grid, Page
+   =================================== */
+
+/* ---- Navbar ---- */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-height);
+  background: var(--bg-nav);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--gray-200);
+  z-index: var(--z-nav);
+  transition: box-shadow var(--duration-normal) var(--ease-out);
+}
+.navbar.scrolled {
+  box-shadow: var(--shadow-md);
+}
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--primary-600);
+  text-decoration: none;
+}
+.nav-logo svg {
+  width: 32px; height: 32px;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+.nav-link {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+.nav-link:hover {
+  color: var(--primary-600);
+  background: var(--primary-50);
+}
+.nav-link.active {
+  color: var(--primary-600);
+  background: var(--primary-50);
+}
+.nav-auth {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast);
+}
+.nav-user:hover { background: var(--gray-100); }
+
+.nav-avatar {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--primary-100);
+  color: var(--primary-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--font-semibold);
+  font-size: var(--text-sm);
+}
+.nav-username {
+  font-weight: var(--font-medium);
+  font-size: var(--text-sm);
+}
+
+/* Mobile menu toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: var(--space-2);
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--gray-700);
+  border-radius: 2px;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+/* ---- Footer ---- */
+.footer {
+  background: var(--bg-footer);
+  color: var(--gray-400);
+  padding: var(--space-16) 0 var(--space-8);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: var(--space-10);
+  margin-bottom: var(--space-12);
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: #fff;
+  margin-bottom: var(--space-4);
+}
+.footer-desc {
+  color: var(--gray-400);
+  font-size: var(--text-sm);
+  line-height: var(--leading-relaxed);
+  max-width: 320px;
+}
+.footer-heading {
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-4);
+}
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.footer-links a {
+  color: var(--gray-400);
+  font-size: var(--text-sm);
+  transition: color var(--duration-fast);
+}
+.footer-links a:hover { color: #fff; }
+
+.footer-bottom {
+  border-top: 1px solid var(--gray-700);
+  padding-top: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-sm);
+}
+.footer-socials {
+  display: flex;
+  gap: var(--space-4);
+}
+.footer-socials a {
+  color: var(--gray-400);
+  transition: color var(--duration-fast);
+}
+.footer-socials a:hover { color: #fff; }
+
+/* ---- Grid helpers ---- */
+.grid {
+  display: grid;
+  gap: var(--space-6);
+}
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 1024px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .nav-links, .nav-auth { display: none; }
+  .nav-toggle { display: flex; }
+
+  /* Mobile menu */
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    background: #fff;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-lg);
+    animation: fadeInDown var(--duration-normal) var(--ease-out);
+  }
+  .nav-auth.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: calc(var(--nav-height) + 200px);
+    left: 0; right: 0;
+    background: #fff;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .mobile-menu-open .nav-links,
+  .mobile-menu-open .nav-auth {
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile-menu-open .nav-links {
+    position: absolute;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    background: #fff;
+    padding: var(--space-4) var(--space-6);
+    border-bottom: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-lg);
+    animation: fadeInDown var(--duration-normal) var(--ease-out);
+    z-index: 10;
+  }
+  .mobile-menu-open .nav-auth {
+    position: absolute;
+    top: calc(var(--nav-height) + 44px * var(--nav-link-count, 5) + 32px);
+    left: 0; right: 0;
+    background: #fff;
+    padding: 0 var(--space-6) var(--space-4);
+    box-shadow: var(--shadow-lg);
+    z-index: 10;
+  }
+
+  .footer-grid { grid-template-columns: 1fr; gap: var(--space-8); }
+  .footer-bottom { flex-direction: column; gap: var(--space-4); text-align: center; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .course-grid { grid-template-columns: 1fr; }
+}

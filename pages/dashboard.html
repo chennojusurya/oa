@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Your personalized learning dashboard — saved courses, progress tracking, and AI suggestions.">
+  <title>Dashboard — CourseAI</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/animations.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/pages/dashboard.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <main>
+      <div class="container">
+        <div class="dashboard-header">
+          <div class="dashboard-greeting">
+            <h1 id="dashGreeting">Welcome back!</h1>
+            <p style="color:var(--text-secondary);" id="dashSubtitle">Here's your learning overview</p>
+          </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="dashboard-stats" id="dashStats"></div>
+
+        <!-- Main Grid: Left + Right columns -->
+        <div class="dashboard-grid">
+          <!-- Left Column -->
+          <div>
+            <!-- Personalized Recommendations -->
+            <div class="dash-section">
+              <div class="dash-section-header">
+                <h3>🎯 Recommended for You</h3>
+                <a href="explore.html" class="btn btn-ghost btn-sm">View All →</a>
+              </div>
+              <div class="course-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));" id="dashRecommended"></div>
+            </div>
+
+            <!-- Saved Courses -->
+            <div class="dash-section">
+              <div class="dash-section-header">
+                <h3>❤️ Saved Courses</h3>
+              </div>
+              <div id="savedCoursesList"></div>
+            </div>
+
+            <!-- Completed Courses -->
+            <div class="dash-section">
+              <div class="dash-section-header">
+                <h3>✅ Completed Courses</h3>
+              </div>
+              <div id="completedCoursesList"></div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div>
+            <!-- AI Suggestions -->
+            <div class="dash-section">
+              <div class="dash-section-header">
+                <h3>🤖 AI Suggestions</h3>
+              </div>
+              <div id="aiSuggestions"></div>
+            </div>
+
+            <!-- Progress Tracking -->
+            <div class="dash-section">
+              <div class="dash-section-header">
+                <h3>📊 Progress Tracking</h3>
+              </div>
+              <div id="progressTracking"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="../js/pages/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CourseAI — Stop Searching. Start Learning Smart. AI-powered course aggregation from Coursera, Udemy, edX, YouTube, Khan Academy, NPTEL, and more.">
+  <title>CourseAI — Smart Online Course Aggregator</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+</head>
+<body>
+  <div class="page-wrapper">
+    <main>
+      <!-- Hero Section -->
+      <section class="hero" id="hero">
+        <div class="hero-shape hero-shape-1"></div>
+        <div class="hero-shape hero-shape-2"></div>
+        <div class="hero-shape hero-shape-3"></div>
+        <div class="hero-content container">
+          <div class="hero-badge">✨ AI-Powered Course Discovery</div>
+          <h1>Stop Searching.<br>Start Learning Smart.</h1>
+          <p>Discover the best courses from 10+ platforms, tailored to your goals. Powered by intelligent recommendations.</p>
+          <div class="search-bar" id="heroSearch">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;margin-left:12px;color:var(--gray-400);flex-shrink:0">
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input type="text" id="heroSearchInput" placeholder="Search for any skill — Python, AI, Web Dev, Cloud..." aria-label="Search courses">
+            <button class="btn btn-primary" id="heroSearchBtn">Search</button>
+          </div>
+          <div class="hero-stats">
+            <div>
+              <div class="hero-stat-value">85+</div>
+              <div class="hero-stat-label">Courses</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">10+</div>
+              <div class="hero-stat-label">Platforms</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">15</div>
+              <div class="hero-stat-label">Categories</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">8</div>
+              <div class="hero-stat-label">Career Paths</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Platform Strip -->
+      <section class="section" style="padding: var(--space-6) 0;">
+        <div class="container">
+          <div class="platform-strip" id="platformStrip">
+            <span>Coursera</span>
+            <span>Udemy</span>
+            <span>edX</span>
+            <span>YouTube</span>
+            <span>Khan Academy</span>
+            <span>NPTEL</span>
+            <span>HackerRank</span>
+            <span>LeetCode</span>
+            <span>Codecademy</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trending Skills -->
+      <section class="section reveal" id="trendingSection">
+        <div class="container text-center">
+          <h2 class="section-title">🔥 Trending Skills</h2>
+          <p class="section-subtitle">What learners are searching for right now</p>
+          <div class="trending-skills stagger" id="trendingSkills"></div>
+        </div>
+      </section>
+
+      <!-- Popular Courses -->
+      <section class="section reveal" id="popularSection">
+        <div class="container">
+          <h2 class="section-title">🏆 Popular Courses</h2>
+          <p class="section-subtitle">Most loved courses across all platforms</p>
+          <div class="course-grid stagger" id="popularCourses"></div>
+        </div>
+      </section>
+
+      <!-- Recommended For You -->
+      <section class="section reveal" id="recommendedSection">
+        <div class="container">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-2);">
+            <h2 class="section-title">🎯 Recommended For You</h2>
+          </div>
+          <p class="section-subtitle" id="recSubtitle">Sign in to get personalized AI-powered recommendations</p>
+          <div class="course-grid stagger" id="recommendedCourses"></div>
+        </div>
+      </section>
+
+      <!-- CTA Banner -->
+      <section class="section reveal">
+        <div class="container">
+          <div class="cta-banner">
+            <h2>Ready to accelerate your career?</h2>
+            <p>Create a free account and get AI-powered learning paths tailored to your career goals.</p>
+            <a href="pages/auth.html?tab=signup" class="btn btn-lg" id="ctaBtn">Get Started → </a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/pages/home.js"></script>
+</body>
+</html>

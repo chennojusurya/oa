@@ -1,0 +1,209 @@
+/* ===================================
+   PAGE-SPECIFIC STYLES — Learning Path
+   =================================== */
+
+.lp-header {
+  padding: var(--space-10) 0 var(--space-4);
+  text-align: center;
+}
+.lp-header p {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Input section */
+.lp-input-section {
+  max-width: 640px;
+  margin: 0 auto var(--space-12);
+  text-align: center;
+}
+.lp-input-group {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+.lp-input-group input {
+  flex: 1;
+  padding: var(--space-4) var(--space-5);
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-xl);
+  font-size: var(--text-base);
+  transition: border-color var(--duration-fast);
+}
+.lp-input-group input:focus {
+  border-color: var(--primary-500);
+}
+.lp-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+.lp-suggestion-chip {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--gray-200);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast);
+  background: #fff;
+}
+.lp-suggestion-chip:hover {
+  border-color: var(--primary-400);
+  background: var(--primary-50);
+  color: var(--primary-600);
+}
+
+/* Results */
+.lp-result {
+  animation: fadeInUp var(--duration-slow) var(--ease-out);
+}
+.lp-result-header {
+  text-align: center;
+  margin-bottom: var(--space-10);
+}
+.lp-result-header h2 span {
+  color: var(--primary-600);
+}
+.lp-meta {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-8);
+  margin-top: var(--space-4);
+}
+.lp-meta-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.lp-meta-item svg {
+  width: 18px; height: 18px;
+  color: var(--primary-500);
+}
+
+/* Stepper timeline */
+.stepper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.stepper::before {
+  content: '';
+  position: absolute;
+  left: 28px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--primary-400), var(--accent-500));
+  border-radius: 3px;
+}
+
+.step {
+  position: relative;
+  padding-left: 76px;
+  padding-bottom: var(--space-10);
+}
+.step:last-child { padding-bottom: 0; }
+
+.step-marker {
+  position: absolute;
+  left: 12px;
+  top: 0;
+  width: 34px; height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--primary-600);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  box-shadow: 0 0 0 4px var(--primary-100);
+  z-index: 1;
+}
+.step.beginner .step-marker      { background: var(--success-500); box-shadow: 0 0 0 4px #dcfce7; }
+.step.intermediate .step-marker  { background: var(--warning-500); box-shadow: 0 0 0 4px #fef3c7; }
+.step.advanced .step-marker      { background: var(--error-500);   box-shadow: 0 0 0 4px #fee2e2; }
+.step.projects .step-marker      { background: var(--accent-600);  box-shadow: 0 0 0 4px #ede9fe; }
+
+.step-content {
+  background: #fff;
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-card);
+}
+.step-level {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-2);
+}
+.step.beginner .step-level      { color: var(--success-500); }
+.step.intermediate .step-level  { color: var(--warning-500); }
+.step.advanced .step-level      { color: var(--error-500); }
+.step.projects .step-level      { color: var(--accent-600); }
+
+.step h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-2);
+}
+.step-desc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+.step-duration {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--space-5);
+}
+
+.step-courses {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--space-4);
+}
+.step-course-card {
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition: all var(--duration-fast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.step-course-card:hover {
+  background: var(--primary-50);
+}
+.step-course-title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+.step-course-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+.step-course-platform {
+  font-weight: var(--font-medium);
+  color: var(--primary-600);
+}
+
+@media (max-width: 768px) {
+  .stepper::before { left: 18px; }
+  .step { padding-left: 56px; }
+  .step-marker { left: 2px; width: 30px; height: 30px; font-size: var(--text-xs); }
+  .lp-input-group { flex-direction: column; }
+  .lp-meta { flex-direction: column; align-items: center; gap: var(--space-3); }
+}
